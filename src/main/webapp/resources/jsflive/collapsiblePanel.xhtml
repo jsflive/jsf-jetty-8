@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:cc="http://java.sun.com/jsf/composite"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <cc:interface>
+        <cc:attribute name="model" required="true">
+            <cc:attribute name="collapsed" required="true"/>
+            <cc:attribute name="toggle" required="true" method-signature="java.lang.String f()"/>
+        </cc:attribute>
+        <cc:actionSource name="toggle"/>
+        <cc:facet name="header"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:panelGroup layout="block" styleClass="collapsiblePanel-header">
+            <h:commandButton id="toggle" action="#{cc.attrs.model.toggle}" styleClass="collapsiblePanel-img"
+                    image="#{resource[cc.attrs.model.collapsed ? 'jsflive:plus.png' : 'jsflive:minus.png']}"/>
+            <cc:renderFacet name="header"/>
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{!cc.attrs.model.collapsed}">
+            <cc:insertChildren/>
+        </h:panelGroup>
+        <h:outputStylesheet library="jsflive" name="components.css"/>
+    </cc:implementation>
+
+</ui:composition>
